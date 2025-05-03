@@ -1,4 +1,3 @@
-````markdown
 # Story2Audio
 
 **Story2Audio** is an AI-powered application that converts written stories into engaging audio using a custom TTS (Text-to-Speech) pipeline. It wraps a Kokoro TTS model inside a gRPC microservice and exposes a simple frontend for generating and listening to audio stories.
@@ -81,20 +80,6 @@ pip install -r requirements.txt
 ```bash
 chmod +x start.sh
 ./start.sh
-```
-
----
-
-## 📁 Project Structure (Simplified)
-
-```
-story2audio/
-│
-├── app/                  # Core application logic
-├── start.sh              # Script to run gRPC and frontend
-├── Dockerfile            # Docker configuration
-├── requirements.txt      # Python dependencies
-└── README.md             # Project info
 ```
 
 ---
