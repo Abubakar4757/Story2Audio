@@ -14,6 +14,7 @@ def serve():
     server.start()
     try:
         while True:
+            print("hello")
             time.sleep(86400)  # 1 day
     except KeyboardInterrupt:
         server.stop(0)
