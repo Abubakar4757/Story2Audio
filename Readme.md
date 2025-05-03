@@ -20,8 +20,7 @@ Copy
 Edit
 git clone https://github.com/your-repository-url.git
 cd your-repository
-2. Install Dependencies
-To install all necessary dependencies, run:
+2. Install Dependencies To install all necessary dependencies, run:
 
 bash
 Copy
