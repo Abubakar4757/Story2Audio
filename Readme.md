@@ -1,127 +1,100 @@
-Story2Audio Generator
+````markdown
+# Story2Audio
 
-The Story2Audio Generator is a web-based application that transforms written stories into expressive audio using Kokoro TTS. The app uses gRPC for communication between the frontend and the backend, and allows users to enter a story in text form and listen to the generated audio.
+**Story2Audio** is an AI-powered application that converts written stories into engaging audio using a custom TTS (Text-to-Speech) pipeline. It wraps a Kokoro TTS model inside a gRPC microservice and exposes a simple frontend for generating and listening to audio stories.
 
-🚀 Setup
-Prerequisites
-Before getting started, make sure you have the following installed:
+---
 
-Python 3.7+
+## 🚀 Features
 
-pip (Python package manager)
+- Input a story via frontend (Gradio or Streamlit)
+- Generate natural-sounding audio using Kokoro TTS
+- Containerized using Docker for easy deployment
+- Concurrent, microservice-based architecture
 
-gRPC & Protobuf libraries for Python
+---
 
-Streamlit for the web interface
+## 🛠️ Technologies Used
 
-1. Clone the repository
-bash
-Copy
-Edit
-git clone https://github.com/your-repository-url.git
-cd your-repository
-2. Install Dependencies To install all necessary dependencies, run:
+- Python 3.10
+- gRPC
+- Kokoro TTS
+- Streamlit / Gradio (Frontend)
+- Docker
 
-bash
-Copy
-Edit
+---
+
+## 📦 How to Run the App (Using Docker)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/story2audio.git
+cd story2audio
+````
+
+### 2. Build the Docker image
+
+```bash
+docker build -t story2audio-app .
+```
+
+> This step may take time depending on your internet speed as dependencies are installed inside the container.
+
+### 3. Run the Docker container
+
+```bash
+docker run -p 50051:50051 -p 8501:8501 story2audio-app
+```
+
+* `50051`: gRPC service
+* `8501`: Frontend interface (Streamlit or Gradio)
+
+Once the container is running, open your browser and go to:
+
+```
+http://localhost:8501
+```
+
+---
+
+## 🧪 Local Development (Optional)
+
+If you're not using Docker and want to run locally:
+
+### 1. Create a virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 2. Install dependencies
+
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
-This will install the following:
+```
 
-grpcio – gRPC library for Python.
+### 3. Start the app
 
-streamlit – Web framework for the user interface.
+```bash
+chmod +x start.sh
+./start.sh
+```
 
-protobuf – For serializing the messages used in gRPC.
+---
 
-Kokoro TTS – Text-to-Speech engine (or any other TTS model you are using).
+## 📁 Project Structure (Simplified)
 
-If Kokoro TTS or other model dependencies are not included, please follow their installation instructions.
+```
+story2audio/
+│
+├── app/                  # Core application logic
+├── start.sh              # Script to run gRPC and frontend
+├── Dockerfile            # Docker configuration
+├── requirements.txt      # Python dependencies
+└── README.md             # Project info
+```
 
-🖥️ Usage
-Starting the gRPC Server
-First, start the gRPC server by running the following command in the grpc_server directory:
-
-bash
-Copy
-Edit
-python run_server.py
-This starts a gRPC server listening on localhost:50051 to receive requests for audio generation.
-
-Starting the Streamlit Web App
-To launch the frontend interface, run the following command:
-
-bash
-Copy
-Edit
-streamlit run app.py
-The web application will be available at http://localhost:8501. You can input your story, click "Generate Audio," and listen to the result.
-
-🏗️ Architecture
-Overview
-The system consists of two main components:
-
-gRPC Server (run_server.py):
-
-Hosts the Story2AudioService that listens for gRPC requests.
-
-Upon receiving a request, it processes the text and generates audio using the Kokoro TTS engine (or any chosen TTS model).
-
-Sends the audio content back to the client in the form of a response.
-
-Streamlit Web App (app.py):
-
-A web-based interface that allows users to input their story.
-
-Sends the story text to the gRPC server via a TextRequest message.
-
-Receives the audio content and plays it back in the UI.
-
-Communication Flow
-Frontend (Streamlit)
-
-The user enters a story in the text area and clicks "Generate Audio."
-
-The frontend sends a gRPC request to the backend server with the story text.
-
-Backend (gRPC Server)
-
-The server processes the request, uses the Kokoro TTS engine (or any other TTS model), and generates audio.
-
-The server returns the generated audio back to the frontend.
-
-Frontend (Streamlit)
-
-The frontend receives the audio content and plays it back to the user.
-
-🔧 Model Sources
-The TTS model used in this application is Kokoro TTS (or any other compatible model you are using for text-to-speech generation).
-
-Kokoro TTS: You can refer to the official Kokoro TTS documentation for model installation and configuration instructions.
-
-Other models can be substituted by replacing the TTS engine within the run_server.py script.
-
-⚠️ Limitations
-Text Length: Very long stories may result in processing delays or failures due to memory limitations or server constraints. It’s recommended to limit the text input to a few paragraphs.
-
-Audio Quality: The quality of generated audio may vary depending on the TTS engine used. Kokoro TTS provides expressive speech synthesis, but the output may not always perfectly match human-like intonations or pronunciations.
-
-Internet Connectivity: If using external TTS services, a stable internet connection is required to access the model API.
-
-Error Handling: The app handles some basic errors, but there may still be edge cases where text input is not properly processed.
-
-💡 Future Improvements
-Enhanced Error Handling: Improve error detection and user-friendly messages.
-
-Audio Customization: Add options for customizing voice styles (e.g., pitch, speed, accent).
-
-Scalability: Optimize the backend for handling multiple simultaneous requests (e.g., using cloud deployment).
-
-Save/Download Audio: Allow users to download the generated audio files.
-
-📬 Contact
-If you have any questions or feedback, feel free to reach out:
-
-Email: abubakar4757@gmail.com
-
-
+---
