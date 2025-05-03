@@ -2,15 +2,33 @@ syntax = "proto3";
 
 package story2audio;
 
+// Service definition for Story2Audio
 service Story2AudioService {
+  // RPC method to generate audio from the text
   rpc GenerateAudio (TextRequest) returns (AudioResponse);
 }
 
+// Message for the client to send text data
 message TextRequest {
+  // The story text to be converted to audio
   string text = 1;
 }
 
+// Enum to define possible audio generation statuses
+enum StatusCode {
+  SUCCESS = 0;
+  FAILURE = 1;
+}
+
+// Message to send back the audio content along with status and any potential errors
 message AudioResponse {
+  // The generated audio content in binary format (e.g., WAV, MP3)
   bytes audio_content = 1;
-  string status = 2;
+
+  // Status of the audio generation request
+  // Using StatusCode enum for better clarity
+  StatusCode status = 2;
+
+  // Optional error message in case of failure
+  string error_message = 3;
 }
